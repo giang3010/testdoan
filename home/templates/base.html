@@ -1,0 +1,425 @@
+{% extends "blank.html" %}
+{% load static %}
+{% block title %}
+HG Shop
+{% endblock title %}
+{% block content %}
+	<!-- Banner -->
+	<div class="banner_2">
+		<div class="banner_2_background" style="background-image:url({% static 'images/banner_2_background.jpg' %})"></div>
+		<div class="banner_2_container">
+			<div class="banner_2_dots"></div>
+			<!-- Banner 2 Slider -->
+			
+			<div class="owl-carousel owl-theme banner_2_slider">
+				<!-- Banner 2 Slider Item -->
+
+				
+
+				{% for new in news_slider %}
+				<div class="owl-item">
+					<div class="banner_2_item">
+						<div class="container fill_height">
+							<div class="row fill_height">
+								<div class="col-lg-4 col-md-6 fill_height">
+									<div class="banner_2_content">
+										<div class="banner_2_category">HG Shop</div>
+										<div class="banner_2_title">{{new.title}}</div>
+										<div class="banner_2_text">{{new.description}}</div>
+										
+										<div class="button banner_2_button"><a href="#">Tìm hiểu thêm</a></div>
+										{% comment %} tiktok {% endcomment %}
+										
+										
+									</div>
+									
+								</div>
+								<div class="col-lg-8 col-md-6 fill_height">
+									<div class="banner_2_image_container">
+										<div class="banner_2_image"><img src="{{ new.image.url }}" alt=""></div>
+									</div>
+								</div>
+							</div>
+						</div>			
+					</div>
+				</div>	
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	<!-- Popular Categories -->
+	<script type="text/javascript">
+		function countdown(){
+			var now = new Date();
+			var eventDate = new Date(2020,12,25);
+
+			var currentTime = now.getTime();
+			var eventTime = eventDate.getTime();
+
+			var timeLeft = eventTime - currentTime;
+
+			var s = Math.floor(timeLeft / 1000);
+			var m = Math.floor(s / 60);
+			var h = Math.floor(m / 60);
+			var d = Math.floor(h / 24);
+
+			h %= 24;
+			m %= 60;
+			s %= 60;
+
+			h=(h < 10) ? "0" + h :h;
+			m=(m < 10) ? "0" + m :m;
+			s=(s < 10) ? "0" + s :s;
+
+			document.getElementById("days").textContent = d;
+			document.getElementById("days").innerText = d;
+
+			document.getElementById("hours").textContent = h;
+			document.getElementById("minutes").textContent = m;
+			document.getElementById("seconds").textContent = s;
+
+			setTimeout(countdown, 1000); 
+		} 
+		countdown();
+	</script>
+	
+	<div class="popular_categories">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="popular_categories_content">
+					
+						<div class="popular_categories_title">Danh mục xu hướng</div>
+						<div class="popular_categories_slider_nav">
+							<div class="popular_categories_prev popular_categories_nav"><i class="fas fa-angle-left ml-auto"></i></div>
+							<div class="popular_categories_next popular_categories_nav"><i class="fas fa-angle-right ml-auto"></i></div>
+						</div>
+						<div class="popular_categories_link"><a href="#">Mục lục</a></div>
+					</div>
+				</div>
+				
+				<!-- Popular Categories Slider -->
+				<div class="col-lg-9">
+					<div class="popular_categories_slider_container">
+						<div class="owl-carousel owl-theme popular_categories_slider">
+
+							<!-- Popular Categories Item -->
+							<div class="owl-item">
+								<div class="popular_category d-flex flex-column align-items-center justify-content-center">
+									<div class="popular_category_image"><img src="{% static 'images/pop1.png' %}" alt="" width="80"	height="54"></div>
+									
+									<div class="popular_category_text">Áo phông</div>
+								</div>
+							</div>
+
+							<!-- Popular Categories Item -->
+							<div class="owl-item">
+								<div class="popular_category d-flex flex-column align-items-center justify-content-center">
+									<div class="popular_category_image"><img src="{% static 'images/pop2.png' %}" alt="" width="80"	height="54"></div>
+									<div class="popular_category_text">Quần short</div>
+								</div>
+							</div>
+
+							<!-- Popular Categories Item -->
+							<div class="owl-item">
+								<div class="popular_category d-flex flex-column align-items-center justify-content-center">
+									<div class="popular_category_image"><img src="{% static 'images/pop3.png' %}" alt="" width="80"	height="54"></div>
+									<div class="popular_category_text">T-shirt</div>
+								</div>
+							</div>
+
+							<!-- Popular Categories Item -->
+							<div class="owl-item">
+								<div class="popular_category d-flex flex-column align-items-center justify-content-center">
+									<div class="popular_category_image"><img src="{% static 'images/pop5.png' %}" alt="" width="80"	height="54"></div>
+									<div class="popular_category_text">Váy ngắn</div>
+								</div>
+							</div>
+
+							<!-- Popular Categories Item -->
+							<div class="owl-item">
+								<div class="popular_category d-flex flex-column align-items-center justify-content-center">
+									<div class="popular_category_image"><img src="{% static 'images/pop6.png' %}" alt="" width="80"	height="54"></div>
+									<div class="popular_category_text">Váy</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Hot New Arrivals -->
+
+	
+
+	<!-- Best Sellers -->
+
+	<div class="best_sellers">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="tabbed_container">
+						<div class="tabs clearfix tabs-right">
+							<div class="new_arrivals_title">Dành cho bạn</div>
+							<ul class="clearfix">
+								<li class="active">Mới nhất</li>
+								<li>Khuyến mãi</li>
+								<li>Khác</li>
+							</ul>
+							<div class="tabs_line"><span></span></div>
+						</div>
+
+						<div class="bestsellers_panel panel active">
+
+							<!-- Best Sellers Slider -->
+
+							<div class="bestsellers_slider slider">
+								{% for ft in product_firster %}
+																
+								<!-- Best Sellers Item -->
+								<div class="bestsellers_item discount">
+									<div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
+										<div class="bestsellers_image">					
+										<a href="/product/{{ ft.id }}/{{ ft.slug }}"><img src="{{ ft.image.url }}" alt="" width="115" height="115"></a></div>
+										<div class="bestsellers_content">
+											<div class="bestsellers_category"><a href="/shop/{{ ft.category.id }}/{{ ft.category.slug }}">{{ft.category.title}}</a></div>
+											<div class="bestsellers_name"><a href="/product/{{ ft.id }}/{{ ft.slug }}">{{ft.title}}</a></div>
+											<div class="rating_r rating_r_{{ ft.avaregereview |stringformat:'.0f'}} product_rating">
+												<i></i>
+												<i></i>
+												<i></i>
+												<i></i>
+												<i></i>
+											</div>
+											{% comment %} {{ft.end}} {% endcomment %}
+											
+											{% if ft.reduced_price != 0 %}
+												<div class="bestsellers_price discount">{{ft.reduced_price}}đ<span>{{ft.price}}đ</span></div>
+											{% else %}
+												<div class="bestsellers_price discount">{{ft.price}}đ</div>
+											{% endif %}
+											
+										</div>
+									</div>
+									{% comment %} <div class="bestsellers_fav active"><i class="fas fa-heart"></i></div> {% endcomment %}
+									<ul class="bestsellers_marks">								
+											
+										<li class="product_mark product_new">new</li>
+									
+										{% if ft.saving != 0 %}
+										<li class="bestsellers_mark bestsellers_discount">-{{ft.saving}}%</li>
+										{% else %}
+										<li></li>
+										{% endif %}
+									
+									</ul>
+								</div>
+								{% endfor %}
+
+							</div>
+						</div>
+
+						<div class="bestsellers_panel panel">
+
+							<!-- Best Sellers Slider -->
+
+							<div class="bestsellers_slider slider">
+								{% for rs in products %}
+								<!-- Saving item -->
+								{% if rs.saving != 0  %}
+								<div class="bestsellers_item discount">
+									<div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
+										<div class="bestsellers_image">
+										<a href="/product/{{ rs.id }}/{{ rs.slug }}"><img src="{{ rs.image.url }}" alt=""></a></div>
+										<div class="bestsellers_content">
+											<div class="bestsellers_category"><a href="/shop/{{ rs.category.id }}/{{ rs.category.slug }}">{{rs.category.title}}</a></div>
+											<div class="bestsellers_name"><a href="/product/{{ rs.id }}/{{ rs.slug }}">{{rs.title}}</a></div>
+											<div class="rating_r rating_r_{{ rs.avaregereview |stringformat:'.0f'}} product_rating">
+												<i></i>
+												<i></i>
+												<i></i>
+												<i></i>
+												<i></i>
+											</div>
+											<div class="bestsellers_price discount">{{rs.reduced_price}}đ<span>{{rs.price}}đ</span></div>
+										</div>
+									</div>
+									{% comment %} <div class="bestsellers_fav active"><i class="fas fa-heart"></i></div> {% endcomment %}
+									<ul class="bestsellers_marks">
+										<li class="bestsellers_mark bestsellers_discount">-{{rs.saving}}%</li>
+										<li class="bestsellers_mark bestsellers_new">new</li>
+									</ul>
+								</div>
+								{% else %}
+								
+								{% endif %}
+								
+								{% endfor %}
+							</div>
+						</div>
+
+						<div class="bestsellers_panel panel">
+
+							<!-- Best Sellers Slider -->
+
+							<div class="bestsellers_slider slider">
+								{% for pk in product_picker %}	
+								<!-- Best Sellers Item -->
+								<div class="bestsellers_item discount">
+									<div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
+										<div class="bestsellers_image">
+										<a href="/product/{{ pk.id }}/{{ pk.slug }}"><img src="{{ pk.image.url }}" alt=""></a></div>
+										<div class="bestsellers_content">
+											<div class="bestsellers_category"><a href="/shop/{{ pk.category.id }}/{{ pk.category.slug }}">{{pk.category.title}}</a></div>
+											<div class="bestsellers_name"><a href="/product/{{ pk.id }}/{{ pk.slug }}">{{pk.title}}</a></div>
+											<div class="rating_r rating_r_{{ pk.avaregereview |stringformat:'.0f'}} product_rating">
+												<i></i>
+												<i></i>
+												<i></i>
+												<i></i>
+												<i></i>
+											</div>
+											{% if pk.reduced_price != 0 %}
+												<div class="bestsellers_price discount">{{pk.reduced_price}}đ<span>{{pk.price}}đ</span></div>
+											{% else %}
+												<div class="bestsellers_price discount">{{pk.price}}đ</div>
+											{% endif %}
+										</div>
+									</div>
+									{% comment %} <div class="bestsellers_fav active"><i class="fas fa-heart"></i></div> {% endcomment %}
+									<ul class="bestsellers_marks">
+										{% if pk.saving != 0 %}
+										<li class="bestsellers_mark bestsellers_discount">-{{pk.saving}}%</li>
+										{% else %}			
+										{% endif %}
+										<li class="bestsellers_mark bestsellers_new">new</li>
+									</ul>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+						
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- Reviews -->
+
+	<div class="reviews">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					
+					<div class="reviews_title_container">
+						<h3 class="reviews_title">Được đánh giá gần đây</h3>
+						{% comment %} <div class="reviews_all ml-auto"><a href="#">view all <span>reviews</span></a></div> {% endcomment %}
+					</div>
+
+					<div class="reviews_slider_container">
+						
+						<!-- Reviews Slider -->
+						<div class="owl-carousel owl-theme reviews_slider">
+							{% for rs in cmt %}
+							
+							
+							<!-- Reviews Slider Item -->
+							<div class="owl-item">
+								<div class="review d-flex flex-row align-items-start justify-content-start">
+									<div><div class="review_image"><img src="{{ rs.product.image.url }}" alt=""></div></div>
+									<div class="review_content">
+										<div class="review_name">{{rs.user.last_name}}</div>
+										<div class="review_rating_container">
+											{% comment %} <div class="product-rating">
+												<i class="fa fa-star{% if rs.rate < 1%}-o empty{% endif%}"></i>
+												<i class="fa fa-star{% if rs.rate < 2%}-o empty{% endif%}"></i>
+												<i class="fa fa-star{% if rs.rate < 3%}-o empty{% endif%}"></i>
+												<i class="fa fa-star{% if rs.rate < 4%}-o empty{% endif%}"></i>
+												<i class="fa fa-star{% if rs.rate < 5%}fa fa-star-o empty{% endif%}"></i>
+												
+											</div> {% endcomment %}
+											<div class="rating_r rating_r_{{ rs.rate}} product_rating">
+												<i></i>
+												<i></i>
+												<i></i>
+												<i></i>
+												<i></i>
+											</div>
+											<div class="review_time">{{rs.create_at |date:"d/m/Y H:i:s"}}</div>
+										</div>
+										<div class="review_text"><p>{{rs.comment}}</p></div>
+									</div>
+								</div>
+							</div>
+
+							{% endfor %}
+
+						</div>
+						<div class="reviews_dots"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Recently Viewed -->
+
+
+	<div class="viewed">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="viewed_title_container">
+						<h3 class="viewed_title">Nổi bật</h3>
+						<div class="viewed_nav_container">
+							<div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
+							<div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
+						</div>
+					</div>
+
+					<div class="viewed_slider_container">
+						
+						<!-- Recently Viewed Slider -->
+
+						<div class="owl-carousel owl-theme viewed_slider">
+							{% for lt in product_laster %}
+							<!-- Recently Viewed Item -->
+							<div class="owl-item">
+								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+									<div class="viewed_image"><a href="/product/{{ lt.id }}/{{ lt.slug }}"><img src="{{ lt.image.url }}" alt=""></a></div>
+									<div class="viewed_content text-center">
+										
+										{% if lt.reduced_price != 0 %}
+											<div class="viewed_price">{{lt.reduced_price}}đ<span>{{lt.price}}đ</span></div>
+										{% else %}
+											<div class="viewed_price">{{lt.price}}đ</div>
+										{% endif %}
+										<div class="viewed_name"><a href="/product/{{ lt.id }}/{{ lt.slug }}">{{lt.title}}</a></div>
+									</div>
+									<ul class="item_marks">
+										{% comment %} <li class="item_mark item_discount">-25%</li> {% endcomment %}
+										{% if lt.saving != 0 %}
+										<li class="item_mark item_discount">-{{lt.saving}}%</li>
+										{% else %}			
+										{% endif %}
+										<li class="item_mark item_new">new</li>
+									</ul>
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}
+
+
+	

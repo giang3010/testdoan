@@ -1,0 +1,108 @@
+{% extends 'base_admin.html' %}
+
+{% block title %}
+Tổng quan
+{% endblock title %}
+{% block content %}
+<style type="text/css">
+    .form-signin {
+        width: 100%;
+        max-width: 330px;
+        padding: 15px;
+        margin: auto;
+    }
+    .form-signin .checkbox {
+        font-weight: 400;
+    }
+    .form-signin .form-control {
+        position: relative;
+        box-sizing: border-box;
+        height: auto;
+        padding: 10px;
+        font-size: 16px;
+    }
+    .form-signin .form-control:focus {
+        z-index: 2;
+    }
+    .form-signin input[type="email"] {
+        margin-bottom: 10px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .h3{
+        text-align: center;
+    }
+    </style>
+
+
+    <div class="cart_section">
+		<div class="container">
+						
+			<canvas id="myChart" width="400" height="200"></canvas>
+			{% comment %} {{dict.get('06')}} {% endcomment %}
+		</div>
+	</div>
+	<script>
+		
+			let myChart = document.getElementById('myChart').getContext('2d');
+			let massPopChart = new Chart(myChart, {
+				type: 'line',
+				data: {
+					labels: [{% for rs in a %}
+					'Tháng {{rs}}',
+					{% endfor %}],
+					datasets: [{
+						label: '#Doanh thu',
+						data: [
+							{% for key, value in a.items %}
+								{{ value }},
+							{% endfor %}
+							
+							
+						],
+						backgroundColor: [
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(54, 162, 235, 0.2)',
+							'rgba(255, 206, 86, 0.2)',
+							'rgba(75, 192, 192, 0.2)',
+							'rgba(153, 102, 255, 0.2)',
+							'rgba(255, 159, 64, 0.2)'
+						],
+						borderColor: [
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)',
+							'rgba(255, 159, 64, 1)'
+						],
+						borderWidth: 1,
+						borderColor:'#777',
+						hoverBorderWidth:3,
+						hoverBorderColor: '#000'
+
+					}]
+				},
+				options: {
+					scales: {						
+						yAxes: [{
+							ticks: {
+								beginAtZero: true
+							}
+						}]
+					},
+					title:{
+						display:true,
+						text:'Tốc độ tăng trưởng năm 2020 (VNĐ)'
+					},
+					legend:{
+						display:true,
+						
+					},
+					
+				}
+			});
+		
+	</script>
+{% endblock %}
