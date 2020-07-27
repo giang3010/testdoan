@@ -77,11 +77,6 @@ class OrderForm(ModelForm):
 
 
 class OrderProduct(models.Model):
-    STATUS = (
-        ('Mới', 'Mới'),
-        ('Đã xác nhận', 'Đã xác nhận'),
-        ('Đã hủy', 'Đã hủy'),
-    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -89,7 +84,6 @@ class OrderProduct(models.Model):
     quantity = models.IntegerField()
     price = models.DecimalField(default = 0,max_digits=100,decimal_places=0)
     total = models.DecimalField(default = 0,max_digits=100,decimal_places=0)
-    status = models.CharField(max_length=50, choices=STATUS, default='Mới')
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
