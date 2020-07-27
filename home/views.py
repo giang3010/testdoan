@@ -390,37 +390,6 @@ def shop(request):
     return render(request,'shop.html',context)
 
 
-
-# def FilterView(request):
-#     qs = Product.objects.all()
-#     title_contains_query = request.GET.get('title_contains')
-#     id_exact_query = request.GET.get('id_exact')
-#     title_or_author_query = request.GET.get('title_or_author')
-#     view_price_min = request.GET.get('view_price_min')
-#     view_price_max = request.GET.get('view_price_max')
-
-#     if is_valid_queryparam(title_contains_query):
-#         qs = qs.filter(title__icontains = title_contains_query)
-
-#     elif is_valid_queryparam(id_exact_query):
-#         qs = qs.filter(id=id_exact_query)
-    
-#     elif is_valid_queryparam(title_or_author_query):
-#         qs = qs.filter(Q(title__icontains=title_or_author_query)
-#                         | Q(author__name__icontains=title_or_author_query)
-#                         ).distinct()
-#     if is_valid_queryparam(view_price_min):
-#         qs = qs.filter(price__gte=view_price_min)
-
-#     if is_valid_queryparam(view_price_max):
-#         qs = qs.filter(price__lt=view_price_max)
-
-#     context = {
-#         'queryset' : qs,
-
-#     }
-#     return render(request,'shop.html',context)
-
 def shop_products(request,id,slug):
     products = Product.objects.all()
     category = Category.objects.all()
@@ -493,41 +462,49 @@ def search(request):
         form = SearchForm(request.POST)
         if form.is_valid():
             q = form.cleaned_data['query'] # get form input data
-            catid = 0
-            if catid==0:
-                products=Product.objects.filter(title__icontains=q)
-                if products:
-                    category = Category.objects.all()
-                    context = {
-                                'products': products,
-                                'q':q,
-                                'category': category }
-                    return render(request, 'products_search.html', context)
-                else:
-                    messages.error(request,"Không tìm thấy")
-                    return HttpResponseRedirect('/')
-                  #SELECT * FROM product WHERE title LIKE '%query%'
+            products=Product.objects.filter(title__icontains=q)
+            c = products.count
+            trademark = TradeMark.objects.all()
+            paginator = Paginator(products, 10)
+            pageNumber = request.GET.get('page')
+            try:
+                cmts = paginator.page(pageNumber)
+            except PageNotAnInteger:
+                cmts = paginator.page(1)
+            except EmptyPage:
+                cmts = paginator.page(paginator.num_pages)
+            category = Category.objects.all()
+            if products:
+                category = Category.objects.all()
+                context = {
+                            'products': products,
+                            'q':q,
+                            'category': category,
+                            'c': c,
+                            'trademark': trademark,
+                            'cmts': cmts,
+                            }
+                return render(request, 'products_search.html', context)
             else:
-                products = Product.objects.filter(title__icontains=query,category_id=catid)
-
-            
+                messages.error(request,"Không tìm thấy")
+                return HttpResponseRedirect('/')                    
     return HttpResponseRedirect('/')
 
-def search_auto(request):
-    if request.is_ajax():
-        q = request.GET.get('term', '')
-        products = Product.objects.filter(title__icontains=q)
+# def search_auto(request):
+#     if request.is_ajax():
+#         q = request.GET.get('term', '')
+#         products = Product.objects.filter(title__icontains=q)
 
-        results = []
-        for rs in products:
-            product_json = {}
-            product_json = rs.title +" > " + rs.category.title
-            results.append(product_json)
-        data = json.dumps(results)
-    else:
-        data = 'fail'
-    mimetype = 'application/json'
-    return HttpResponse(data, mimetype)
+#         results = []
+#         for rs in products:
+#             product_json = {}
+#             product_json = rs.title +" > " + rs.category.title
+#             results.append(product_json)
+#         data = json.dumps(results)
+#     else:
+#         data = 'fail'
+#     mimetype = 'application/json'
+#     return HttpResponse(data, mimetype)
 
 
 def product_detail(request,id,slug):  

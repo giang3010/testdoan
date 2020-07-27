@@ -48,9 +48,7 @@ urlpatterns = [
 
     # path('search/',views.product_search, name='product_search'),
     path('search/', views.search, name='search'),
-    path('search_auto/', views.search_auto, name='search_auto'),
-
-    # path('search/',views.search, name='search'),
+    # path('search_auto/', views.search_auto, name='search_auto'),
     path('product/<int:id>/<slug:slug>/',views.product_detail, name='product_detail'),
     
     #order

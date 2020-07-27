@@ -160,11 +160,11 @@
 									{% recursetree category %}
 
 									<li class="hassubs">
-										<a href="/shop/{{ node.id }}/{{ node.slug }}">{{ node.title }}<i class="fas fa-chevron-right"></i></a>
+										<a href="/category/{{ node.id }}/{{ node.slug }}">{{ node.title }}<i class="fas fa-chevron-right"></i></a>
 										{% if not node.is_leaf_node %}
 
 										<ul>
-											<li> <a href="/shop/{{ children.id }}/{{ children.slug }}">{{ children }}</a>											
+											<li> <a href="/category/{{ children.id }}/{{ children.slug }}">{{ children }}</a>											
 											</li>
 										</ul>
 										{% endif %}

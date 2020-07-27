@@ -318,7 +318,11 @@
 	<div class="shop">
 		<div class="container">
 			<div class="row">
+				<div class="col-lg-2">
 				
+
+					
+				</div>
 
 				<div class="col-lg-9">
 					
@@ -326,16 +330,16 @@
 
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
-							<div class="shop_product_count"><span>186</span> products found</div>
+							<div class="shop_product_count"><span>{{c}}</span> sản phẩm</div>
 							<div class="shop_sorting">
-								<span>Sort by:</span>
+								<span>Sắp xếp theo: </span>
 								<ul>
 									<li>
-										<span class="sorting_text">highest rated<i class="fas fa-chevron-down"></span></i>
+										<span class="sorting_text">Tên<i class="fas fa-chevron-down"></span></i>
 										<ul>
-											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>highest rated</li>
-											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>name</li>
-											<li class="shop_sorting_button"data-isotope-option='{ "sortBy": "price" }'>price</li>
+											
+											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>Tên</li>
+											<li class="shop_sorting_button"data-isotope-option='{ "sortBy": "price" }'>Giá</li>
 										</ul>
 									</li>
 								</ul>
@@ -344,35 +348,60 @@
 
 						<div class="product_grid">
 							<div class="product_grid_border"></div>
-							{% if messages %}
-								{% for message in messages %}
-								<div class = "alert alert-{{message.tags}}" role = "alert">
-									{{message}}
+																											
+								{% for rs in cmts %}
+								<!-- Product Item -->
+								<div class="product_item is_new">
+									<div class="product_border"></div>
+									<div class="product_image d-flex flex-column align-items-center justify-content-center">
+									<a href="/product/{{ rs.id }}/{{ rs.slug }}"><img src="{{rs.image.url}}" alt="" width="115" height="109"></a></div>
+									<div class="product_content">
+										{% if rs.reduced_price != 0 %}
+											<div class="product_price">{{rs.reduced_price}}đ<span>{{rs.price}}đ</span></div>
+										{% else %}
+											<div class="product_price">{{rs.price}}đ</div>
+										{% endif %}
+										<div class="product_name"><div><a href="/product/{{rs.id}}/{{rs.slug}}" tabindex="0">{{rs.title}}</a></div></div>
+										<div>{{rs.trademark.name}}</div>
+									</div>
+									<div class="product_fav"><i class="fas fa-heart"></i></div>
+									<ul class="product_marks">
+										<li class="product_mark product_discount">-25%</li>
+										{% if rs.isnew < 100 %}
+											<li class="product_mark product_new">mới</li>
+										{% else %}
+											<li></li>
+										{% endif %}
+										
+									</ul>
 								</div>
 								{% endfor %}
-							{% endif %}
-							{% for rs in products %}
-							<!-- Product Item -->
-							<div class="product_item is_new">
-								<div class="product_border"></div>
-								<div class="product_image d-flex flex-column align-items-center justify-content-center">
-								<a href="/product/{{ rs.id }}/{{ rs.slug }}"><img src="{{rs.image.url}}" alt="" width="115" height="109"></a></div>
-								<div class="product_content">
-									<div class="product_price">{{rs.price}}đ</div>
-									<div class="product_name"><div><a href="/product/{{rs.id}}/{{rs.slug}}" tabindex="0">{{rs.title}}</a></div></div>
-								</div>
-								<div class="product_fav"><i class="fas fa-heart"></i></div>
-								<ul class="product_marks">
-									<li class="product_mark product_discount">-25%</li>
-									<li class="product_mark product_new">new</li>
-								</ul>
-							</div>
-							{% endfor %}
 							
 
 						</div>
 
 						<!-- Shop Page Navigation -->
+
+						<div class="shop_page_nav d-flex flex-row">
+							
+																				
+							<ul class="page_nav d-flex flex-row">
+								{% if cmts.has_previous %}
+								<li><a href="?page={{cmts.previous_page_number}}">Trước</a></li>
+								{% endif %}
+								{% for pg in cmts.paginator.page_range %}
+								{% if cmts.number == pg %}
+									<li class="active"><a href="?page={{pg}}">{{pg}}</a></li>
+								{% else %}
+									<li><a href="?page={{pg}}">{{pg}}</a></li>
+								{% endif %}																							
+								{% endfor %}
+								{% if cmts.has_next %}
+									<li><a href="?page={{cmts.next_page_number}}">Sau</a></li>
+								{% endif %}
+							</ul>							
+							
+						</div>
 
 					</div>
 
