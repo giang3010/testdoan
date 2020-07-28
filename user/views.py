@@ -4,7 +4,6 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, update_session_auth_hash
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
 from django.db.models import Q
 # Create your views here.
 from product.models import Category
@@ -92,18 +91,18 @@ def user_password(request):
         else:
             total += rs.variant.price * rs.quantity
     if request.method == "POST":
-        form = PasswordChangeForm(request.user, request.POST)
+        form = ChangePassWord(request.user, request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request,user)           
             messages.success(request,'Thay đổi mật khẩu thành công')
             return HttpResponseRedirect('/user')
         else:
-            messages.error(request,'Không thể thay đổi mật khẩu'+ str(form.errors))
-            return HttpResponseRedirect('user/change-password')
+            messages.error(request,'Không thể thay đổi mật khẩu')
+            return HttpResponseRedirect('/user/change-password')
     else:
         category = Category.objects.all()
-        form = PasswordChangeForm(request.user)
+        form = ChangePassWord(request.user)
         return render(request,'user_password.html',{
             'form' : form,
             'category' : category,

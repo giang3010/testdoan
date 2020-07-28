@@ -85,15 +85,17 @@
 						<div class="header_search">
 							<div class="header_search_content">
 								<div class="header_search_form_container">
-									<form action="/search/" class="header_search_form clearfix">
+									<form action="/search/" id ="." method = "post" class="header_search_form clearfix">
 										{% csrf_token %}
-										<input id="query" name="query" type="search" required="required" class="header_search_input" placeholder="Nhập tên sản phẩm...">
-										{% comment %} <select name="catid" class="custom_dropdown_placeholder clc">	 {% endcomment %}
+										<input id="query" name="query" type="text" required="required" class="header_search_input" placeholder="Nhập tên sản phẩm...">
+										{% comment %} <select name="catid" class="custom_dropdown_placeholder clc"> {% endcomment %}
 											<div class="custom_dropdown">
 												<div class="custom_dropdown_list">												
 													<span class="custom_dropdown_placeholder clc" >Tất cả</span>
-													<i class="fas fa-chevron-down"></i>												
-													<ul class="custom_list clc">														
+													<i class="fas fa-chevron-down"></i>	
+																								
+													<ul class="custom_list clc">
+																											
 														<li><a name="nam"class="clc" href="#"><option value="1">Nam </option></a></li>
 														<li><a name="nu"class="clc" href="#"><option value="1">Nữ</option></a></li>
 														<li><a name="betrai"class="clc" href="#"><option value="2">Bé trai</option></a></li>
@@ -225,75 +227,34 @@
 						<div class="page_menu_content">
 							
 							<div class="page_menu_search">
-								<form action="#">
-									<input type="search" required="required" class="page_menu_search_input" placeholder="Search for products...">
+								<form action="/search/" method ="post">
+									{% csrf_token %}
+									<input id="query" name="query" type="text" required="required" class="page_menu_search_input" placeholder="Nhập tên sản phẩm...">
 								</form>
 							</div>
-							<ul class="page_menu_nav">
-								<li class="page_menu_item has-children">
-									<a href="#">Language<i class="fa fa-angle-down"></i></a>
-									<ul class="page_menu_selection">
-										<li><a href="#">English<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Italian<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Spanish<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Japanese<i class="fa fa-angle-down"></i></a></li>
-									</ul>
-								</li>
-								<li class="page_menu_item has-children">
-									<a href="#">Currency<i class="fa fa-angle-down"></i></a>
-									<ul class="page_menu_selection">
-										<li><a href="#">US Dollar<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">EUR Euro<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">GBP British Pound<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">JPY Japanese Yen<i class="fa fa-angle-down"></i></a></li>
-									</ul>
-								</li>
+							<ul class="page_menu_nav">				
 								<li class="page_menu_item">
-									<a href="#">Home<i class="fa fa-angle-down"></i></a>
+									<a href="{% url 'base' %}">Trang chủ<i class="fa fa-angle-down"></i></a>
 								</li>
 								<li class="page_menu_item has-children">
-									<a href="#">Super Deals<i class="fa fa-angle-down"></i></a>
+									<a href="#">Thương hiệu<i class="fa fa-angle-down"></i></a>
 									<ul class="page_menu_selection">
-										<li><a href="#">Super Deals<i class="fa fa-angle-down"></i></a></li>
-										<li class="page_menu_item has-children">
-											<a href="#">Menu Item<i class="fa fa-angle-down"></i></a>
-											<ul class="page_menu_selection">
-												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-											</ul>
-										</li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+										{% load myapptags %}
+										{% trademarktag self as tdt %}
+										{% for rs in tdt %}
+										<li><a href="/trademark/{{rs.id}}">{{rs}}</a></li>
+										{% endfor %}
 									</ul>
 								</li>
-								<li class="page_menu_item has-children">
-									<a href="#">Featured Brands<i class="fa fa-angle-down"></i></a>
-									<ul class="page_menu_selection">
-										<li><a href="#">Featured Brands<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-									</ul>
-								</li>
-								<li class="page_menu_item has-children">
-									<a href="#">Trending Styles<i class="fa fa-angle-down"></i></a>
-									<ul class="page_menu_selection">
-										<li><a href="#">Trending Styles<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-									</ul>
-								</li>
-								<li class="page_menu_item"><a href="blog.html">blog<i class="fa fa-angle-down"></i></a></li>
-								<li class="page_menu_item"><a href="contact.html">contact<i class="fa fa-angle-down"></i></a></li>
+								
+								<li class="page_menu_item"><a href="{% url 'shop' %}">Danh sách sản phẩm<i class="fa fa-angle-down"></i></a></li>
+								<li class="page_menu_item"><a href="{% url 'cart' %}">Giỏ hàng<i class="fa fa-angle-down"></i></a></li>
+								<li class="page_menu_item"><a href="{% url 'contact' %}">Liên hệ<i class="fa fa-angle-down"></i></a></li>
 							</ul>
 							
 							<div class="menu_contact">
-								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="{% static 'images/phone_white.png' %}" alt=""></div>+38 068 005 3570</div>
-								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="{% static 'images/mail_white.png' %}" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
+								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="{% static 'images/phone_white.png' %}" alt=""></div>+84 91 3344 722</div>
+								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="{% static 'images/mail_white.png' %}" alt=""></div><a href="mailto:fbworld.giang@gmail.com">fbworld.giang@gmail.com</a></div>
 							</div>
 						</div>
 					</div>

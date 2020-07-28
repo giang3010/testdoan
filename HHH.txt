@@ -1,3 +1,0 @@
-pip install django-filter
-pip install django-ckeditor
-pip install django-mptt

@@ -8,7 +8,18 @@ from product.models import Product
     
 
 class UserProfile(models.Model):
+    SEX_CHOICES = (
+        ('Nữ', 'Nữ',),
+        ('Nam', 'Nam',),
+        ('Chưa xác định', 'Chưa xác định',),
+    )
     user = models.OneToOneField(User,on_delete=models.CASCADE)
+    gender = models.CharField(
+        max_length=20,
+        choices=SEX_CHOICES,
+        null= True,
+        default="Chưa xác định",
+    )
     phone = models.CharField(max_length=12, blank=True)
     name = models.CharField(blank=True, max_length=30)
     address = models.CharField(blank=True, max_length=150)   

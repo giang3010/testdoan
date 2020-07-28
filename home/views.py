@@ -271,7 +271,7 @@ def category_products(request,id,slug):
         cmts = paginator.page(1)
     except EmptyPage:
         cmts = paginator.page(paginator.num_pages)
-    count = products.count()
+    count = products.count
     category = Category.objects.all()
     form = EmailSignupForm()
     current_user = request.user
@@ -298,6 +298,14 @@ def category_products(request,id,slug):
 
 def trademark(request,id):
     products = Product.objects.filter(trademark_id = id)
+    paginator = Paginator(products, 10)
+    pageNumber = request.GET.get('page')
+    try:
+        cmts = paginator.page(pageNumber)
+    except PageNotAnInteger:
+        cmts = paginator.page(1)
+    except EmptyPage:
+        cmts = paginator.page(paginator.num_pages)
     trademark = TradeMark.objects.all()
     c = products.count
     category = Category.objects.all()
@@ -317,6 +325,7 @@ def trademark(request,id):
         'form' : form,
         'c' : c,
         'trademark' : trademark,
+        'cmts' : cmts,
 
     }
     return render(request,'category.html',context)
@@ -766,12 +775,9 @@ def report(request):
     product = Product.objects.all()
     order_list = Order.objects.all()
     order_filter = ExportFilter(request.GET, queryset=order_list)
-
-    
     context ={
         'product': product,
         'filter': order_filter,
-
     }
     return render(request, 'report.html', context)
 

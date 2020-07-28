@@ -57,7 +57,7 @@ class Order(models.Model):
     address = models.CharField(max_length= 100, blank=True)
     district = models.CharField(max_length= 30, blank=True)
     city = models.CharField(max_length= 30, blank=True)
-    
+    # 
     total = models.DecimalField(default = 0,max_digits=100,decimal_places=0)
     shiper = models.CharField(max_length= 50, blank=True)
     note = models.TextField()

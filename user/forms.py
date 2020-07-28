@@ -1,4 +1,5 @@
-from django.contrib.auth.forms import UserCreationForm , UserChangeForm
+from django.contrib.auth.forms import UserCreationForm , UserChangeForm, PasswordChangeForm
+from django.views.generic.edit import FormMixin
 from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm 
@@ -54,6 +55,35 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ('username', 'email','first_name','last_name','password1','password2',)
 
+class ChangePassWord(FormMixin, PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['old_password'] = forms.CharField(widget=forms.TextInput(attrs={
+            "type": "password",
+            "name": "old_password",
+            "id": "old_password",
+            "class" : "contact_form_name input_field",
+            "placeholder": "Mật khẩu cũ",
+        }), label="")
+        self.fields['new_password1'] = forms.CharField(widget=forms.TextInput(attrs={
+            "type": "password",
+            "name": "new_password1",
+            "id": "new_password1",
+            "class" : "contact_form_email input_field",
+            "placeholder": "Mật khẩu mới",
+        }), label="")
+        self.fields['new_password2']  = forms.CharField(widget=forms.TextInput(attrs={
+            "type": "password",
+            "name": "new_password2",
+            "id": "new_password2",
+            "class" : "contact_form_name input_field",
+            "placeholder": "Xác nhận mật khẩu mới",
+        }), label="")
+        
+        class Meta:
+            model = User
+            fields = ('old_password', 'new_password1','new_password2',)
+
 
 class UserProfileForm(ModelForm):
     class Meta:
@@ -72,7 +102,7 @@ class UserUpdateForm(UserChangeForm):
 
 class ProfileUpdateForm(forms.ModelForm):
     phone = forms.CharField(max_length=30, label='Điện thoại')
-
+    gender = forms.RadioSelect(attrs={'Nữ': 'Nữ','Nam': 'Nam','Chưa xác định': 'Chưa xác định'})
     name = forms.CharField(max_length=100,label='Địa chỉ 1')
     address = forms.CharField(max_length=100,label='Đường, Phường/Xã')
     district = forms.CharField(max_length=100,label='Quận/Huyện')
@@ -88,6 +118,6 @@ class ProfileUpdateForm(forms.ModelForm):
     image = forms.FileField(widget=forms.FileInput(attrs={'accept':'image/*'}),label='Hình ảnh')
     class Meta:
         model = UserProfile
-        fields = ('phone','name','address','district','city','name1','address1','district1','city1','image',)
+        fields = ('phone','gender','name','address','district','city','name1','address1','district1','city1','image',)
 
 
